@@ -22,3 +22,7 @@ jobs:
 
     - name: Run consumer contract tests
       run: make consumer-pact
+
+
+
+
