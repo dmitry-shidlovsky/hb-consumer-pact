@@ -24,11 +24,11 @@ jobs:
 
     - name: Can I Deploy
       run: |
-      pact-broker can-i-deploy \
-        --pacticipant TestConsumer \
-        --broker-base-url https://hb-test.pactflow.io \
-        --broker-token $PACT_BROKER_TOKEN \
-        --latest
+        pact/bin/pact-broker can-i-deploy \
+          --pacticipant TestConsumer \
+          --broker-base-url https://hb-test.pactflow.io \
+          --broker-token $PACT_BROKER_TOKEN \
+          --latest
 
     - name: Run consumer contract tests
       run: make consumer-pact
