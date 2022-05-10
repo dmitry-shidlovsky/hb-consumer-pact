@@ -5,8 +5,8 @@ on:
 
 env:
   PACT_BROKER_TOKEN: ${{ secrets.PACT_BROKER_TOKEN }}
-  CONSUMER_TAG:
-  PACT_SERVICE_VERSION:
+  PACT_SERVICE_VERSION: 1.0.0
+  PACT_SERVICE_TAG: dev
 
 jobs:
   test:
