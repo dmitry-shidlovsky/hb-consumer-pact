@@ -16,7 +16,7 @@ func main() {
 		PactURLs:        []string{filepath.FromSlash(fmt.Sprintf("%s/testconsumer-testprovider.json", os.Getenv("PACT_DIR")))},
 		PactBroker:      os.Getenv("PACT_BROKER_URL"),
 		ConsumerVersion: os.Getenv("PACT_SERVICE_VERSION"),
-		Tags:            []string{os.Getenv("PACT_TAG")},
+		Tags:            []string{os.Getenv("PACT_SERVICE_TAG")},
 		BrokerToken:     os.Getenv("PACT_BROKER_TOKEN"),
 	})
 
