@@ -1,0 +1,37 @@
+name: Deploy
+
+on:
+  workflow_dispatch:
+
+env:
+  PACT_BROKER_TOKEN: ${{ secrets.PACT_BROKER_TOKEN }}
+  CONSUMER_TAG:
+  PACT_SERVICE_VERSION:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Go
+      uses: actions/setup-go@v2
+      with:
+        go-version: 1.18
+
+    - name: Install pact
+      run: make install
+
+    - name: Can I Deploy
+      run: |
+      pact-broker can-i-deploy \
+        --pacticipant TestConsumer \
+        --broker-base-url https://hb-test.pactflow.io \
+        --broker-token $PACT_BROKER_TOKEN \
+        --latest
+
+    - name: Run consumer contract tests
+      run: make consumer-pact
+
+    - name: Publish contrats with tag
+      run: make publish

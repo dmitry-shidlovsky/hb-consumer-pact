@@ -11,4 +11,7 @@ consumer-unit:
 consumer-pact:
 	go test ./consumer -run pact -count=1
 
-.PHONY: install consumer-unit consumer-pact
+publish:
+	go run consumer/pact/publish.go
+
+.PHONY: install consumer-unit consumer-pact publish
