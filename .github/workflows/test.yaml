@@ -11,7 +11,6 @@ on:
 env:
   PACT_BROKER_TOKEN: ${{ secrets.PACT_BROKER_TOKEN }}
   PACT_SERVICE_VERSION: ${{ github.event.inputs.version }}
-  PACT_SERVICE_TAG: dev
 
 jobs:
   test:
