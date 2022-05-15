@@ -1,4 +1,4 @@
-name: Deploy 2
+name: Deploy
 
 on:
   workflow_dispatch:
@@ -51,5 +51,5 @@ jobs:
           --pacticipant TestConsumer \
           --broker-base-url https://hb-test.pactflow.io \
           --broker-token $PACT_BROKER_TOKEN \
-		      --environment $PACT_SERVICE_VERSION \
+          --environment $PACT_SERVICE_VERSION \
           --version $PACT_SERVICE_VERSION
