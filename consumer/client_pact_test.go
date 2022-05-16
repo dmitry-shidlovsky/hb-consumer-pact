@@ -50,3 +50,42 @@ func TestClient_GetUser_pact(t *testing.T) {
 		}
 	})
 }
+
+func TestClient_GetUsers_pact(t *testing.T) {
+	t.Run("the user exists", func(t *testing.T) {
+		pact.
+			AddInteraction().
+			Given("Users exists").
+			UponReceiving("A request to login with users ").
+			WithRequest(request{
+				Method: "GET",
+				Path:   term("/users/", "/users"),
+			}).
+			WillRespondWith(dsl.Response{
+				Status:  200,
+				Body:    dsl.Match([]model.User{}),
+				Headers: commonHeaders,
+			})
+
+		err := pact.Verify(func() error {
+			user, err := client.GetUsers()
+
+			if err != nil {
+				return err
+			}
+
+			if len(user) != 1 {
+				t.Fatal("Oops")
+			}
+			if user[0].ID != 1 {
+				t.Fatal("Oops")
+			}
+
+			return nil
+		})
+
+		if err != nil {
+			t.Fatalf("Error on Verify: %v", err)
+		}
+	})
+}
