@@ -51,6 +51,38 @@ func TestClient_GetUser_pact(t *testing.T) {
 	})
 }
 
+func TestClient_GetUserNotFound_pact(t *testing.T) {
+	t.Run("the unexisted user", func(t *testing.T) {
+		id := 1
+
+		pact.
+			AddInteraction().
+			Given("User dmitry exists").
+			UponReceiving("A request to login with user 'dmitry'").
+			WithRequest(request{
+				Method: "GET",
+				Path:   term("/user/1", "/user/[0-9]+"),
+			}).
+			WillRespondWith(dsl.Response{
+				Status:  404
+			})
+
+		err := pact.Verify(func() error {
+			user, err := client.GetUser(id)
+
+			if err != nil {
+				return err
+			}
+
+			return nil
+		})
+
+		if err != nil {
+			t.Fatalf("Error on Verify: %v", err)
+		}
+	})
+}
+
 func TestClient_GetUsers_pact(t *testing.T) {
 	t.Run("the user exists", func(t *testing.T) {
 		pact.
