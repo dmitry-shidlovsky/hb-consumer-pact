@@ -64,7 +64,7 @@ func TestClient_GetUserNotFound_pact(t *testing.T) {
 				Path:   term("/user/1", "/user/[0-9]+"),
 			}).
 			WillRespondWith(dsl.Response{
-				Status:  404
+				Status:  404,
 			})
 
 		err := pact.Verify(func() error {
