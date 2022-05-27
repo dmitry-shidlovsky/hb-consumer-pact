@@ -68,7 +68,7 @@ func TestClient_GetUserNotFound_pact(t *testing.T) {
 			})
 
 		err := pact.Verify(func() error {
-			user, err := client.GetUser(id)
+			_, err := client.GetUser(id)
 
 			if err != nil {
 				return err
