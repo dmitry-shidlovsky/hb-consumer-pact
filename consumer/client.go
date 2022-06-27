@@ -33,6 +33,18 @@ func (c *Client) GetUser(id int) (*model.User, error) {
 
 }
 
+func (c *Client) GetUsers() ([]model.User, error) {
+	req, err := c.newRequest("GET", "/users", nil)
+	if err != nil {
+		return nil, err
+	}
+	var users []model.User
+	_, err = c.do(req, &users)
+
+	return users, err
+}
+
+
 func (c *Client) newRequest(method, path string, body interface{}) (*http.Request, error) {
 	rel := &url.URL{Path: path}
 	u := c.BaseURL.ResolveReference(rel)
